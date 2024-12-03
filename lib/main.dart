@@ -1,4 +1,3 @@
-import 'package:akasztofa/components/char_display.dart';
 import 'package:akasztofa/pages/game_page.dart';
 import 'package:akasztofa/utils/text_model.dart';
 //import 'package:akasztofa/utils/text_provider.dart';
