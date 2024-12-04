@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 
-class Inputs extends StatefulWidget {
-  const Inputs({super.key});
+class CharInput extends StatelessWidget {
+  final String label;
+  final TextEditingController controller = TextEditingController();
+  final TextInputType inputType;
+  
+  CharInput({
+    required this.label,
+    required this.inputType,
+ });
 
-  @override
-  _InputsState createState() => _InputsState();
-}
 
-class _InputsState extends State<Inputs> {
-  final TextEditingController _controller = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: _controller,
-      decoration: const InputDecoration(
-        hintText: 'Írj be egy betűt',
-      ),
-      onSubmitted: (String value) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Beírtál: $value'),
+      controller: controller,
+      keyboardType: inputType,
+      maxLength: 1,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: Colors.black,
+            width: 2,
           ),
-        );
-        _controller.clear();
-      },
+        ),
+      ),
     );
   }
 }

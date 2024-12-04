@@ -1,5 +1,4 @@
 import 'package:akasztofa/models/game_info.dart';
-import 'package:akasztofa/models/server_error.dart';
 import 'package:flutter/material.dart';
 
 class GameProvider extends ChangeNotifier {
@@ -23,11 +22,6 @@ class GameProvider extends ChangeNotifier {
 
   void updateWord(List<String> word) {
     _gameInfo!.word = word;
-    notifyListeners();
-  }
-
-  void updateServerError(ServerError serverError) {
-    _gameInfo!.serverError = serverError;
     notifyListeners();
   }
 

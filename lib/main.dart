@@ -24,14 +24,12 @@ class _AkasztoFaAppState extends State<AkasztoFaApp> {
   @override  
   Widget build(BuildContext context) {
       return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Akasztófa',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.brown,
       ),
       home: GamePage(),
     );
   }
 }
-
-
-
