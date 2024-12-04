@@ -1,8 +1,8 @@
 import 'package:akasztofa/alerts/check_dialog_false.dart';
 import 'package:akasztofa/alerts/check_dialog_succes.dart';
+import 'package:akasztofa/alerts/error_dialog.dart';
 import 'package:akasztofa/utils/text_model.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 
@@ -17,9 +17,7 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> { 
 
   @override
-  Widget build(BuildContext context) {
-
-    print('HomePage build');
+  Widget build(BuildContext context) {   
 
     FailDialog fd = FailDialog(
       title: 'Thats it!',
@@ -33,6 +31,17 @@ class _GamePageState extends State<GamePage> {
     );
 
     SuccesDialog sd = SuccesDialog(
+      title: 'Thats it!',
+      content: const Text('Correct!'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context), 
+          child: const Text('OK')
+        ),
+      ],
+    );
+
+    ErrorDialog ed = ErrorDialog(
       title: 'Thats it!',
       content: const Text('Correct!'),
       actions: [
@@ -70,7 +79,15 @@ class _GamePageState extends State<GamePage> {
                       context.read<TextModel>().setText('Körte');
                     }, 
                     child: const Text('Change text'), 
+                  ),
+                   ElevatedButton(
+                    onPressed: () {
+                      ed.show(context);
+                      context.read<TextModel>().setText('Alma');
+                    }, 
+                    child: const Text('Change text'), 
                   )
+
                 ], 
               ),
              
