@@ -49,9 +49,10 @@ class _GamePageState extends State<GamePage> {
                     controller: widget.controller,
                   ),
                 ElevatedButton(
+
                   onPressed: () {
-                    if (widget.controller.text.isEmpty ) {
-                      ed.show(context, const Text('Please enter a letter', style: TextStyle(
+                    if (widget.controller.text.isEmpty || context.read<GuessProvider>().guessedLetters.contains(widget.controller.text)) {
+                      ed.show(context, const Text('Please enter a letter u have not guessed', style: TextStyle(
                         color: Colors.red,
                         fontSize: 20,
                       ),), [

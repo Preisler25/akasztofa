@@ -57,13 +57,17 @@ class GameProvider extends ChangeNotifier {
 
       // Fetch the API for the guess correction
       Guess guess = await GameHelper().getGuess(context, letter);
-     
+      
+
       // If the API call is successful and in the word
       if (guess.inTheWord){
         for (int i = 0; i < guess.indexes.length; i++) {
           //for each index chang letter 
           _gameInfo.word[guess.indexes[i]] = letter;
         }
+      }
+      else {
+        
       }
       notifyListeners();
       
