@@ -1,15 +1,23 @@
 import 'package:akasztofa/pages/game_page.dart';
 import 'package:akasztofa/utils/game_provider.dart';
-import 'package:akasztofa/utils/text_model.dart';
-
+import 'package:akasztofa/utils/guess_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => GameProvider(),
-    child: const AkasztoFaApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => GameProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => GuessProvider(),
+        ),
+      ],
+      child: const AkasztoFaApp(),
+    ),
+  );
 }
 
 class AkasztoFaApp extends StatefulWidget {

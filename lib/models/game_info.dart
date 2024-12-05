@@ -9,7 +9,7 @@ class GameInfo {
   {
     print('GameInfo constructor');
     print('wordLength: $wordLength');
-    word = List.filled(wordLength, '');
+    word = List.filled(wordLength, '_');
   }
 
   static GameInfo fromJson(Map<String, dynamic> json) {

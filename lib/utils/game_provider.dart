@@ -1,22 +1,25 @@
-import 'package:akasztofa/alerts/base_dialog.dart';
+import 'package:akasztofa/alerts/error_dialog.dart';
+import 'package:akasztofa/alerts/loading_dialog.dart';
 import 'package:akasztofa/models/game_info.dart';
 import 'package:akasztofa/models/game_state.dart';
-import 'package:akasztofa/utils/game_info_helper.dart';
+import 'package:akasztofa/models/guess.dart';
+import 'package:akasztofa/utils/game_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class GameProvider extends ChangeNotifier {
   GameInfo _gameInfo = GameInfo(0, GameState.INITIAL); 
   GameInfo get gameInfo => _gameInfo;
- 
+  
+  LoadingDialog ld = LoadingDialog(title: 'Loading');
+  ErrorDialog ed = ErrorDialog(title: 'Something went worng!');
+
   void setGameInfo(BuildContext context) async {
   print('setGameInfo');
-  
-  BaseDialog(title: 'Loading', content: Lottie.network('https://lottie.host/6703ec01-2389-48d5-b897-9da53630d662/4Kj3CZv8eP.json'), actions: []).show(context);
+  ld.show(context, const Text('Loading'), []);
 
   try {
     // Fetch the API for the game info
-    GameInfo gameInfo = await GameInfoHelper().getGameInfo(context);
+    GameInfo gameInfo = await GameHelper().getGameInfo(context);
     
       print('gameInfo: ${gameInfo.wordLength}');
 
@@ -25,10 +28,19 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   } catch (e) {
     // Show an error dialog if the API call fails
-    
+    ed.show(context, const Text('Something went wrong!'), [
+      ElevatedButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: const Text('OK'),
+      ),
+      ]);
   } finally {
     // Remove the loading dialog
-    Future.delayed(Duration(seconds: 10)).then((value) => Navigator.pop(context));
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+      }
   }
 }
 
@@ -37,18 +49,30 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateGameInfo(GameInfo gameInfo) {
-    _gameInfo = gameInfo;
-    notifyListeners();
-  }
+  void guessLetter(BuildContext context, String letter) async {
+    try {
+      
+      //Build Loding dialog
+      ld.show(context, const Text('Loading'), []);
 
-  void updateWord(List<String> word) {
-    _gameInfo.word = word;
-    notifyListeners();
-  }
-
-  void updateWordLength(int wordLength) {
-    _gameInfo.wordLength = wordLength;
-    notifyListeners();
+      // Fetch the API for the guess correction
+      Guess guess = await GameHelper().getGuess(context, letter);
+     
+      // If the API call is successful and in the word
+      if (guess.inTheWord){
+        for (int i = 0; i < guess.indexes.length; i++) {
+          //for each index chang letter 
+          _gameInfo.word[guess.indexes[i]] = letter;
+        }
+      }
+      notifyListeners();
+      
+      //context.pop
+      if (Navigator.canPop(context)){
+         Navigator.pop(context);
+      }
+    } catch (e) {
+      // Show an error dialog if the API call fails
+    }
   }
 }

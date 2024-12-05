@@ -1,10 +1,11 @@
 import 'package:akasztofa/alerts/base_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:lottie/lottie.dart';
 
-class SuccesDialog extends BaseDialog {
-  
-  SuccesDialog({required super.title});
+class LoadingDialog extends BaseDialog {
+   
+  LoadingDialog({super.title = "Error"});
 
   @override
   void show(BuildContext context, Widget content, List<Widget> actions) {
@@ -23,7 +24,7 @@ class SuccesDialog extends BaseDialog {
               children: [
                 content,
                  Lottie.network(
-                            "https://lottie.host/10c0ef49-0da2-4bb7-885b-106797bef08c/lDNWxLlxGA.json"
+                            'https://lottie.host/6703ec01-2389-48d5-b897-9da53630d662/4Kj3CZv8eP.json'
                 ),
               ],
             ),
@@ -32,6 +33,5 @@ class SuccesDialog extends BaseDialog {
         );
       },
     );
-  }
-
-} 
+  } 
+}

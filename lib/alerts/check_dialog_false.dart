@@ -4,10 +4,10 @@ import 'package:lottie/lottie.dart';
 
 class FailDialog extends BaseDialog {
   
-  FailDialog({required super.title, required super.content, required super.actions});
+  FailDialog({required super.title});
 
   @override
-  void show(BuildContext context) {
+  void show(BuildContext context , Widget content, List<Widget> actions) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 

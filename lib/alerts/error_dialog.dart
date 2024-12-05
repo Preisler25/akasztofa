@@ -4,10 +4,10 @@ import 'package:lottie/lottie.dart';
 
 class ErrorDialog extends BaseDialog {
   
-  ErrorDialog({required super.title, required super.content, required super.actions});
+  ErrorDialog({super.title = "Error"});
 
   @override
-  void show(BuildContext context) {
+  void show(BuildContext context, Widget content, List<Widget> actions) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -18,7 +18,7 @@ class ErrorDialog extends BaseDialog {
           title: Text(title),
           content: SizedBox(
             width: width * 0.8,
-            height: height * 0.35,
+            height: height * 0.4,
             child: Column(
               children: [
                 content,
