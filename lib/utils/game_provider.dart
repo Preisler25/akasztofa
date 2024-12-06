@@ -4,7 +4,10 @@ import 'package:akasztofa/models/game_info.dart';
 import 'package:akasztofa/models/game_state.dart';
 import 'package:akasztofa/models/guess.dart';
 import 'package:akasztofa/utils/game_helper.dart';
+import 'package:akasztofa/utils/loading_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 
 class GameProvider extends ChangeNotifier {
   GameInfo _gameInfo = GameInfo(0, GameState.INITIAL); 
@@ -15,7 +18,8 @@ class GameProvider extends ChangeNotifier {
 
   void setGameInfo(BuildContext context) async {
   print('setGameInfo');
-  ld.show(context, const Text('Loading'), []);
+  context.read<LoadingProvider>().setLoading(true);
+
 
   try {
     // Fetch the API for the game info
@@ -38,9 +42,7 @@ class GameProvider extends ChangeNotifier {
       ]);
   } finally {
     // Remove the loading dialog
-    if (Navigator.canPop(context)) {
-      Navigator.pop(context);
-      }
+    context.read<LoadingProvider>().setLoading(false); 
   }
 }
 

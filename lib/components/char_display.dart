@@ -9,33 +9,31 @@ class CharDisplay extends StatefulWidget{
   State<CharDisplay> createState() => _CharDisplayState();
 }
 
+
 class _CharDisplayState extends State<CharDisplay> {
+ 
+  double width = 0;
+  double height = 0;
+
   @override
   Widget build(BuildContext context) {
-    double width = 0;
-    double height = 0;
 
-    double _width = MediaQuery.of(context).size.width;
-    double _height = MediaQuery.of(context).size.height;
-
-    setState(() {
-      width = _width * 0.8;
-      height = _height * 0.3;
+    Future.delayed(const Duration(milliseconds: 100), () {
+      setState(() {
+        width = MediaQuery.of(context).size.width * 0.8;
+        height = MediaQuery.of(context).size.height * 0.3;
+      });
     });
 
     return AnimatedContainer(
       width: width,
       height: height,
       duration: const Duration(milliseconds: 200),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(
-          color: Colors.black,
-          width: 2,
-        ),
+      decoration: BoxDecoration( 
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
   children: [
     if (context.watch<GuessProvider>().guessedLetters.isEmpty)
       Center(
@@ -47,10 +45,18 @@ class _CharDisplayState extends State<CharDisplay> {
           itemCount: context.watch<GuessProvider>().guessedLetters.length,
           itemBuilder: (context, index) {
             final word = context.watch<GuessProvider>().guessedLetters[index];
-            return ListTile(
-              title: Text(word),
-            );
-          },
+            return ListTile( 
+                title: DecoratedBox(decoration: BoxDecoration(
+                  color: Colors.brown,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(child: Text(word, style: const TextStyle(color: Colors.white, fontSize: 20),)),
+                ),
+            ),
+            );  
+              },
         ),
       ),
   ],

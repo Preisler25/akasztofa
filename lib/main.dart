@@ -1,6 +1,7 @@
 import 'package:akasztofa/pages/game_page.dart';
 import 'package:akasztofa/utils/game_provider.dart';
 import 'package:akasztofa/utils/guess_provider.dart';
+import 'package:akasztofa/utils/loading_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +9,9 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => LoadingProvider(),
+        ),
         ChangeNotifierProvider(
           create: (context) => GameProvider(),
         ),

@@ -18,8 +18,7 @@ class LoadingDialog extends BaseDialog {
         return AlertDialog(
           backgroundColor: Color.fromRGBO(255, 255, 255, 1.0),
           title: Text(title),
-          content: SizedBox(
-            width: width * 0.8,
+          content: SizedBox( width: width * 0.8,
             height: height * 0.35,
             child: Column(
               children: [

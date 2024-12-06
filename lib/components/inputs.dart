@@ -16,20 +16,33 @@ class CharInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      keyboardType: inputType,
-      maxLength: 1,
-      onChanged: (value) {
-        context.read<GuessProvider>().setText(value);
-      },
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(
-            color: Colors.black,
-            width: 2,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.4,
+      child: TextField(
+        controller: controller,
+        keyboardType: inputType,
+        maxLength: 1,
+        onChanged: (value) {
+          context.read<GuessProvider>().setText(value);
+        },
+        decoration: InputDecoration(
+          focusColor: Colors.brown,
+          fillColor: Colors.brown,
+          labelText: label,
+          labelStyle: const TextStyle(color: Colors.brown),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: Colors.brown,
+              width: 2,
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+              color: Colors.brown,
+              width: 2,
+            ),
           ),
         ),
       ),
